@@ -1,0 +1,25 @@
+{
+    "name": "marcosadrianolima/padraoprojeto",
+    "description": "Padrão de projeto para novos desenvolvimentos, inicialmente com php puro",
+    "authors": [{
+        "name": "Marcos Adriano Ribeiro Lima",
+        "email": "developermarcos@hotmail.com",
+        "role": "Developer"
+    }],
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload":{
+        "psr-4": {
+            "Source\\": "App/"     
+        },
+        "files":[
+            "App/config/Config.php",
+            "App/config/Autoload.php"
+        ]
+    },
+    "require": {
+        "phpmailer/phpmailer":"6.0.*",
+        "coffeecode/datalayer":"1.1.*"
+    }
+}

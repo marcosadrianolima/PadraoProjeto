@@ -1,46 +1,42 @@
 <?php 
+namespace App\core;
 class Core{
-    private $_Pasta = NULL;
-    private $_Metodo = NULL;
-    private $_ID = NULL;
+    
     function __construct(){}
 
 
     public function inicia($_BaseUrl, $_URL_ATUAL){
+        
         $PastaMetodoAcao = str_replace($_BaseUrl, "", $_URL_ATUAL);
         $PastaMetodoAcaoSplit = explode("/", $PastaMetodoAcao);
         if($PastaMetodoAcaoSplit[0] !== NULL && $PastaMetodoAcaoSplit[0] !== ""){
-            $_Pasta = ucfirst($PastaMetodoAcaoSplit[0]);
+            $pasta = ucfirst($PastaMetodoAcaoSplit[0]);
             
             if(isset($PastaMetodoAcaoSplit[1])){
-                $_Metodo = $PastaMetodoAcaoSplit[1];
+                $metodo = $PastaMetodoAcaoSplit[1];
 
                 if(isset($PastaMetodoAcaoSplit[2])){
-                    $_ID = $PastaMetodoAcaoSplit[2];
+                    $id = $PastaMetodoAcaoSplit[2];
                 }else{
-                    $_ID = null;
+                    $id = 0;
                 }
             }
             else{
-                $_Metodo = 'index';
+                $metodo = 'index';
             }
         }else{
-             $_Pasta = "Home";
-             $_Metodo = 'index';
-             $_ID = null;
+             $pasta = "Home";
+             $metodo = 'index';
+             $id = 0;
         }
-        
-        $this->CarregaController($_Pasta, $_Metodo, null);
-    }
-    public function CarregaController($pasta , $metodo, $id){
+
         $controller = $pasta;
-        if(class_exists($pasta)){
-            $pagina = new $controller;  
+        if(class_exists($controller)){
+            call_user_func_array(new $controller, $metodo);
+            
         }else{
             die("Error");
         }
     }
-    
-    
 }  
 
